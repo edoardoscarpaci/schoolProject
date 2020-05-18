@@ -1,0 +1,28 @@
+NUM		DCD		5
+ARRAY	DCD		4,5,3,2,1
+		
+		
+		ADR		r1,NUM
+		LDR		r1,[r1]
+		ADR		r2,ARRAY
+ciclo
+		mov		r3,r1
+		mov		r4,r2
+		
+sort
+		ldr		r5, [r4],#4
+		ldr		r6, [r4]
+		sub		r4,r4,#4
+		
+		cmp		r5,r6
+		strgt	r6, [r4],#4
+		strgt	r5, [r4]
+		addle	r4, r4,#4
+		sub		r3,r3,#1
+		cmp		r3,#0
+		bgt		sort
+		
+		sub		r1,r1,#1
+		cmp		r1,#0
+		bgt		ciclo
+		end
