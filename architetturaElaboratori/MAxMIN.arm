@@ -1,0 +1,29 @@
+NUM		DCD		5
+VALUE	DCD		54,2,-1,121,15
+		
+MAX		DCD		0
+MIN		DCD		0
+		
+		
+		ADR		r1,NUM
+		LDR		r1,[r1]
+		ADR		r2, VALUE
+		LDR		r3, [r2]
+		LDR		r4,[r2]
+		
+ciclo	LDR		r5,[r2]
+		add		r2,r2,#4
+		sub		r1,r1,#1
+		cmp		r5,r3
+		movgt	r3,r5
+		cmp		r5,r3
+		movlt	r4,r5
+		cmp		r1,#0
+		bgt		ciclo
+		
+		ADR		r1, MAX
+		STR		r3,[r1]
+		ADR		r1, MIN
+		str		r4,[r1]
+		end
+		

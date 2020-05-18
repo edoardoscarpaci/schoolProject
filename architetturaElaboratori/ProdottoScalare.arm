@@ -1,0 +1,73 @@
+NUM		DCD		8
+ARRAY1	DCD		1,2,4,5,2,4,1,4
+ARRAY2	DCD		-2,3,1,54,3,2,1,0
+SCALAR	FILL		4
+		
+		ADR		r1, NUM
+		LDR		r1,[r1]
+		ADR		r2,ARRAY1
+		ADR		r3,ARRAY2
+		mov		r6,#0
+		
+ciclo	LDR		r4,[r2]
+		LDR		r5,[r3]
+		
+		ADD		r2,r2,#4
+		ADD		r3,r3,#4
+		SUB		r1,r1,#1
+		
+		BL		MULT
+		add		r6,r6,r4
+		cmp		r1, #0
+		bgt		ciclo
+		
+		
+Fine		ADR		r1, SCALAR
+		STR		r6,[r1]
+		end
+		
+		
+		
+		
+MULT		cmp		r5, #0
+		moveq	r4,#0
+		MOVeq	PC,LR
+		cmp		r4, #0
+		MOVeq	PC,LR
+		
+		SUB		SP,SP,#12
+		STR		r1, [SP],#4
+		STR		r2,[SP]
+		
+		mov		r1,#0
+		
+		cmp		r4,#-1
+		movle	r1, #1
+		mvnle	r4,r4
+		addle	r4,r4,#1
+		
+		cmp		r5, #-1
+		mvnle	r5,r5
+		addle	r5,r5,#1
+		EORle	r1,r1, #1
+		
+		
+		
+		mov		r2,#0
+		
+start	add		r2,r2,r4
+		sub		r5,r5,#1
+		cmp		r5,#0
+		bgt		start
+		
+		cmp		r1,#1
+		mvneq	r2,r2
+		addeq	r2,r2,#1
+		
+		mov		r4,r2
+		
+		LDR		r2, [SP],#-4
+		LDR		r1,[SP]
+		MOV		PC,LR
+		
+		
